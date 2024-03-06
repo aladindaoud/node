@@ -2,6 +2,11 @@ const express = require("express");
 const app = express();
 const cors = require(cors)
 app.use(cors())
+let corsOptions = {
+   origin : ["http://localhost:4200",'*'],
+}
+app.use(cors(corsOptions));
+
 
 require("dotenv").config();
 app.use(express.json());
@@ -17,10 +22,7 @@ const keys = await redis.keys(`${pattern}::*`)
   }
 }
 
-let corsOptions = {
-   origin : ['*'],
-}
-app.use(cors(corsOptions)) 
+
 
 app.get("/api/v1/books",cors(corsOptions), async (req, res) => {
   const { limit = 5, orderBy = "name", sortBy = "asc", keyword } = req.query;
