@@ -17,7 +17,7 @@ const keys = await redis.keys(`${pattern}::*`)
 
 
 
-app.get("/api/v1/books", async (req, res) => {
+app.get("/api/v1/books/getAll", async (req, res) => {
   const { limit = 5, orderBy = "name", sortBy = "asc", keyword } = req.query;
   let page = +req.query?.page;
 
