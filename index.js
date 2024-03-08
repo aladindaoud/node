@@ -1,7 +1,14 @@
 const express = require("express");
 const cors = require('cors');
 const app = express();
- app.use(cors());
+
+ const corsOptions = {
+   origin: '*',
+   credentials:false,
+   optionsSuccessStatus: 200,
+ };
+
+ app.use(cors(corsOptions));
 
 require("dotenv").config();
 app.use(express.json());
@@ -19,7 +26,7 @@ const keys = await redis.keys(`${pattern}::*`)
 
 
 
-app.get("/api/v1/books", async (req, res) => {
+app.get("/api/v1/books",cors(corsOptions), async (req, res) => {
    res.set('Access-Control-Allow-Origin', '*');
   const { limit = 5, orderBy = "name", sortBy = "asc", keyword } = req.query;
   let page = +req.query?.page;
@@ -64,7 +71,7 @@ app.get("/api/v1/books", async (req, res) => {
   }
 });
 
-app.get("/api/v1/books/:id", async (req, res) => {
+app.get("/api/v1/books/:id",cors(corsOptions), async (req, res) => {
   res.set('Access-Control-Allow-Origin', '*');
   try {
     const data = await BookModel.findById(req.params.id);
@@ -85,7 +92,7 @@ app.get("/api/v1/books/:id", async (req, res) => {
   }
 });
 
-app.post("/api/v1/books", async (req, res) => {
+app.post("/api/v1/books",cors(corsOptions), async (req, res) => {
   res.set('Access-Control-Allow-Origin', '*');
   try {
     const { name, author, price, description } = req.body;
@@ -108,7 +115,7 @@ app.post("/api/v1/books", async (req, res) => {
   }
 });
 
-app.put("/api/v1/books/:id", async (req, res) => {
+app.put("/api/v1/books/:id",cors(corsOptions), async (req, res) => {
   res.set('Access-Control-Allow-Origin', '*');
   try {
     const { name, author, price, description } = req.body;
@@ -136,7 +143,7 @@ app.put("/api/v1/books/:id", async (req, res) => {
   }
 });
 
-app.delete("/api/v1/books/:id", async (req, res) => {
+app.delete("/api/v1/books/:id",cors(corsOptions), async (req, res) => {
   res.set('Access-Control-Allow-Origin', '*');
   try {
     await BookModel.findByIdAndDelete(req.params.id);
