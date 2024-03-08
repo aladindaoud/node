@@ -1,8 +1,7 @@
+import cors from "cors";
 var express = require('express');
 var app = express();
 
-import cors from "cors";
-const app = express();
 app.use(
   cors({
     origin: "*",
