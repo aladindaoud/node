@@ -1,8 +1,7 @@
 const express = require("express");
+const cors = require('cors');
 const app = express();
- credentials: true,
-
-
+ app.use(cors());
 
 require("dotenv").config();
 app.use(express.json());
