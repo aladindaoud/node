@@ -1,6 +1,13 @@
 var express = require('express');
-
 var app = express();
+
+import cors from "cors";
+const app = express();
+app.use(
+  cors({
+    origin: "*",
+  })
+);
 
 
 require("dotenv").config();
