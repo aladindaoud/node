@@ -1,13 +1,5 @@
-import cors from "cors";
 var express = require('express');
 var app = express();
-
-app.use(
-  cors({
-    origin: "*",
-  })
-);
-
 
 require("dotenv").config();
 app.use(express.json());
