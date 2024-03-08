@@ -1,6 +1,6 @@
 const express = require("express");
 const app = express();
-
+ credentials: true,
 
 
 
@@ -21,6 +21,7 @@ const keys = await redis.keys(`${pattern}::*`)
 
 
 app.get("/api/v1/books", async (req, res) => {
+   res.set('Access-Control-Allow-Origin', '*');
   const { limit = 5, orderBy = "name", sortBy = "asc", keyword } = req.query;
   let page = +req.query?.page;
 
@@ -56,7 +57,6 @@ app.get("/api/v1/books", async (req, res) => {
 
       redis.setex(key, 600, JSON.stringify(response))
     }
-    
     return res.status(200).json(response);
   } catch (error) {
     return res.status(500).json({
@@ -66,6 +66,7 @@ app.get("/api/v1/books", async (req, res) => {
 });
 
 app.get("/api/v1/books/:id", async (req, res) => {
+  res.set('Access-Control-Allow-Origin', '*');
   try {
     const data = await BookModel.findById(req.params.id);
 
@@ -75,7 +76,6 @@ app.get("/api/v1/books/:id", async (req, res) => {
         data,
       });
     }
-
     return res.status(404).json({
       msg: "Not Found",
     });
@@ -87,6 +87,7 @@ app.get("/api/v1/books/:id", async (req, res) => {
 });
 
 app.post("/api/v1/books", async (req, res) => {
+  res.set('Access-Control-Allow-Origin', '*');
   try {
     const { name, author, price, description } = req.body;
     const book = new BookModel({
@@ -109,6 +110,7 @@ app.post("/api/v1/books", async (req, res) => {
 });
 
 app.put("/api/v1/books/:id", async (req, res) => {
+  res.set('Access-Control-Allow-Origin', '*');
   try {
     const { name, author, price, description } = req.body;
     const { id } = req.params;
@@ -136,6 +138,7 @@ app.put("/api/v1/books/:id", async (req, res) => {
 });
 
 app.delete("/api/v1/books/:id", async (req, res) => {
+  res.set('Access-Control-Allow-Origin', '*');
   try {
     await BookModel.findByIdAndDelete(req.params.id);
     deleteKeys('Book')
