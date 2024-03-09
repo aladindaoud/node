@@ -1,13 +1,13 @@
 var express = require('express');
 var app = express();
 
-const cors = require('cors');
+//const cors = require('cors');
 
-app.use(cors({
-  origin: ["http://localhost:4200"],
-  methods: ["GET", "OPTIONS", "PATCH", "DELETE", "POST", "PUT"],
-  credentials: false,
-}));
+//app.use(cors({
+//  origin: ["http://localhost:4200"],
+//  methods: ["GET", "OPTIONS", "PATCH", "DELETE", "POST", "PUT"],
+//  credentials: false,
+//}));
 
 require("dotenv").config();
 app.use(express.json());
