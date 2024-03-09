@@ -1,5 +1,5 @@
 var express = require('express');
-const cors = require('cors');
+var cors = require('cors');
 var app = express();
 
 require("dotenv").config();
