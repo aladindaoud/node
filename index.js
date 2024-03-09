@@ -22,12 +22,13 @@ const keys = await redis.keys(`${pattern}::*`)
     redis.del(keys)
   }
 }
-app.get("/", async (req, res) => {
+
+app.get("/",  (req, res) => {
   res.send('hello world');
 }
 
 
-app.get("/api/v1/books/getAll", async (req, res) => {
+app.get("/api/v1/books/getAll",  (req, res) => {
   const { limit = 5, orderBy = "name", sortBy = "asc", keyword } = req.query;
   let page = +req.query?.page;
 
@@ -71,7 +72,7 @@ app.get("/api/v1/books/getAll", async (req, res) => {
   }
 });
 
-app.get("/api/v1/books/:id", async (req, res) => {
+app.get("/api/v1/books/:id",  (req, res) => {
   try {
     const data = await BookModel.findById(req.params.id);
 
@@ -91,7 +92,7 @@ app.get("/api/v1/books/:id", async (req, res) => {
   }
 });
 
-app.post("/api/v1/books", async (req, res) => {
+app.post("/api/v1/books",  (req, res) => {
   try {
     const { name, author, price, description } = req.body;
     const book = new BookModel({
@@ -113,7 +114,7 @@ app.post("/api/v1/books", async (req, res) => {
   }
 });
 
-app.put("/api/v1/books/:id", async (req, res) => {
+app.put("/api/v1/books/:id",  (req, res) => {
   try {
     const { name, author, price, description } = req.body;
     const { id } = req.params;
@@ -140,7 +141,7 @@ app.put("/api/v1/books/:id", async (req, res) => {
   }
 });
 
-app.delete("/api/v1/books/:id", async (req, res) => {
+app.delete("/api/v1/books/:id",  (req, res) => {
   try {
     await BookModel.findByIdAndDelete(req.params.id);
     deleteKeys('Book')
