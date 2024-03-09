@@ -23,10 +23,6 @@ const keys = await redis.keys(`${pattern}::*`)
   }
 }
 
-app.get("/",  (req, res) => {
-  res.send('hello world');
-}
-
 
 app.get("/api/v1/books/getAll",  (req, res) => {
   const { limit = 5, orderBy = "name", sortBy = "asc", keyword } = req.query;
