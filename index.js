@@ -22,7 +22,9 @@ const keys = await redis.keys(`${pattern}::*`)
     redis.del(keys)
   }
 }
-
+app.get("/", async (req, res) => {
+  res.send('hello world');
+}
 
 
 app.get("/api/v1/books/getAll", async (req, res) => {
