@@ -3,7 +3,11 @@ var app = express();
 
 const cors = require('cors');
 
-
+app.use(cors({
+  origin: ["http://localhost:4200"],
+  methods: ["GET", "OPTIONS", "PATCH", "DELETE", "POST", "PUT"],
+  credentials: false,
+}));
 
 require("dotenv").config();
 app.use(express.json());
@@ -19,11 +23,7 @@ const keys = await redis.keys(`${pattern}::*`)
   }
 }
 
-app.use(cors({
-  origin: ["*"],
-  methods: ["GET", "OPTIONS", "PATCH", "DELETE", "POST", "PUT"],
-  credentials: false,
-}));
+
 
 app.get("/api/v1/books/getAll", async (req, res) => {
   const { limit = 5, orderBy = "name", sortBy = "asc", keyword } = req.query;
