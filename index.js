@@ -1,5 +1,14 @@
 var express = require('express');
+const cors = require('cors');
 var app = express();
+
+
+app.use(cors({
+  origin: ["*"],
+  methods: ["GET", "OPTIONS", "PATCH", "DELETE", "POST", "PUT"],
+  credentials: false,
+}));
+
 
 require("dotenv").config();
 app.use(express.json());
